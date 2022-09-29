@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" 
+    href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap">
+    <title>Guess</title>
+    <link rel="stylesheet" href="main.css"/>
+    <link rel="stylesheet" href="game.css"/>
+</head>
+<body>
+    <div class="game">
+        <div class="number"></div>
+        <h1>What's this?</h1>
+        <img class="object">
+        <p class="hint"></p>
+        <div class="options">
+            <button id="btn1"></button>
+            <button id="btn2"></button>
+            <button id="btn3"></button>
+        </div>
+        <button class="confrimButton">
+            <p class="words">Confirm</p>
+        </button>
+    </div>
+    <div class="final hide">
+        <img class="image">
+        <button class="againButton" onclick="window.location.href='index.html'">
+            <p class="words"><img src="./img/arrow.png" class="arrowHead">Play again</p>
+        </button>
+        <button class="homeButton" onclick="window.location.href='https://gimme.sg/activations/dementia/';">
+            <p class="words"><img src="./img/arrow.png" class="arrowHead">Back to home</p>
+        </button>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>

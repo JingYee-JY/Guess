@@ -1,0 +1,96 @@
+.game{
+    color: black;
+}
+
+.number{
+    margin-top: 30px;
+    font-size: 25px;
+    color: white;
+}
+
+h1{
+    margin: 0;
+}
+
+.object{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.options{
+    height: 160px;
+    display: grid;
+    gap: 10%;
+    grid-template-columns: 50%;
+    justify-content: center;
+}
+
+.image{
+    margin: 0 auto;
+    margin-top: 80px;
+    width: 80%;
+}
+
+.hint{
+    margin: 0% auto;
+    width: 80%;
+    font-size: 25px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+}
+
+#btn1, #btn2, #btn3{
+    padding: 5%;
+    background-color: #BEBEBE;
+    border: transparent;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.hide{
+    visibility: hidden;
+    display: none;
+}
+
+/*ipad*/
+@media screen and (min-width: 768px) and (max-width: 1199px){
+    .image{
+        width: 70%;
+    }
+    .number{
+        margin: 0;
+    }
+    .object{
+        width: 40%;
+    }
+    h1{
+        font-size: 70px;
+    }
+    .options{
+        gap: 5%;
+        height: 300px;
+    }
+    .hint,.number,#btn1,#btn2,#btn3{
+        font-size: 35px;
+    }
+}
+
+/*desktop*/
+@media screen and (min-width:1200px){
+    .number{
+     margin-top: 0;
+    }
+    .options{
+        height: 150px;
+        gap: 5%;
+    }
+    .hint,.number{
+        font-size: 20px;
+    }
+    .game{
+        gap: 10px;
+    }
+    .image{
+        margin: 0 auto;
+    }
+ }
