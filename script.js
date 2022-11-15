@@ -1,21 +1,31 @@
+const startButton = document.querySelector(".startButton")
+const start = document.querySelector(".start")
 const questionNumber = document.querySelector(".number")
 const image = document.querySelector(".image")
 const object = document.querySelector(".object")
 const hint = document.querySelector(".hint")
-const confrimButton = document.querySelector(".confrimButton")
 const game = document.querySelector(".game")
 const final = document.querySelector(".final")
+const againButton = document.querySelector(".againButton")
+const homeButton = document.querySelector(".homeButton")
+
+const clickSound = document.getElementById("click")
+const completed = document.getElementById("completed")
+const clap = document.getElementById("clap")
+const correct = document.getElementById("correct")
+const wrong = document.getElementById("wrong")
+const lose = document.getElementById("lose")
 
 let totalQuestion;
 let current;
 let choice;
 let answer;
 let answerName;
-let selectedBtn;
 let rightBtn;
 let gotRight;
 let once;
 let score;
+let tempArray = [];
 
 let objects = [
     {number: "1", name:"Chapteh",image:"./img/chapteh.png", description:"Something you play by kicking it."},
@@ -30,13 +40,10 @@ let objects = [
     {number: "10", name:"Pets",image:"./img/pets.png", description:"Something you like and have to take care of."}
 ]
 
-Start()
-Question()
-
 function Start(){
     current = score = 0
     gotRight = once = false
-    totalQuestion = Math.floor(Math.random() * 10) + 5;
+    totalQuestion = Math.floor(Math.random() * 6) + 5;
 }
 
 function Question(){
@@ -45,87 +52,97 @@ function Question(){
         final.classList.remove("hide");
         let pass = totalQuestion/2
         if(score == totalQuestion){
+            clap.currentTime = 0
+            clap.play()
             image.src = "./img/greatJob.png"
         }
         else if(score >= pass){
+            completed.currentTime = 0
+            completed.play()
             image.src = "./img/goodJob.png"
         }
         else{
+            lose.currentTime = 0
+            lose.play()
             image.src = "./img/niceTry.png" 
         }
         return
     }
 
+    if(tempArray.length == 0){
+        for(let x = 0; x < objects.length; x++){
+            tempArray.push(objects[x])
+        }
+    }
+
     current += 1;
-    choice = 0
+    choice = false
     questionNumber.innerHTML = current + "/" + totalQuestion;
 
-    qIndex = Math.floor(Math.random() * 10);
+    qIndex = Math.floor(Math.random() * tempArray.length);
 
-    object.src = objects[qIndex].image
-    hint.innerHTML= `${objects[qIndex].description}`
-    answer = objects[qIndex].number
-    answerName = objects[qIndex].name
+    object.src = tempArray[qIndex].image
+    hint.innerHTML= `${tempArray[qIndex].description}`
+    answer = tempArray[qIndex].number
+    answerName = tempArray[qIndex].name
 
-    randomBtn1 = Math.floor(Math.random() * 10);
-    randomBtn2 = Math.floor(Math.random() * 10);
-    randomBtn3 = Math.floor(Math.random() * 10);
+    tempArray.splice(qIndex, 1)
 
-    for(let i = 0; i < 20; i++){
-        if(randomBtn1 == randomBtn2 || randomBtn1 == randomBtn3){
-            randomBtn1 = Math.floor(Math.random() * 9);
-        }
-        if(randomBtn2 == randomBtn3){
-            food2 = Math.floor(Math.random() * 9);
-        }
+    let checkOption = [];
+    for(let x = 0; x < objects.length; x++){
+        checkOption.push(objects[x])
     }
 
     for (let i = 1; i < 4; i ++){
         let currentClass = "btn" + (i)
 
-        let randombtn = "randomBtn" + i
-        randombtn = window[randombtn]
-
-        console.log(randombtn)
+        let randomNumber = Math.floor(Math.random() * checkOption.length);
 
         let currentBtn = document.getElementById(currentClass)
         
         console.log(currentBtn)
-        currentBtn.innerHTML = objects[randombtn].name
+        currentBtn.innerHTML = checkOption[randomNumber].name
 
-        if(objects[randombtn].number == answer){
+        if(checkOption[randomNumber].number == answer){
             rightBtn = currentBtn
             gotRight = true
         }
 
-        currentBtn.setAttribute("data",objects[randombtn].number)
+        currentBtn.setAttribute("data",checkOption[randomNumber].number)
+        
+        checkOption.splice(randomNumber, 1)
 
         if(once == false){
             currentBtn.addEventListener("click", () => {
-                let number = currentBtn.getAttribute("data")
-                if(choice == number){
-                    console.log("s")
-                    currentBtn.style.backgroundColor = "#BEBEBE"
-                    choice = 0
-                    selectedBtn = null
-                    return
-                }
-                else{
-                    if(selectedBtn !=null){
-                        console.log("d")
-                        selectedBtn.style.backgroundColor = "#BEBEBE"
+                if(choice == false){
+                    playClickSound()
+                    let number = currentBtn.getAttribute("data")
+                    if(number == answer){
+                        correct.currentTime = 0
+                        correct.play()
+                        score += 1
+                        currentBtn.style.backgroundColor = "green"
                     }
-                    currentBtn.style.backgroundColor = "white"
-                    choice = number
-                    selectedBtn = currentBtn
-                    console.log(choice)
-                }
-            })
+                    if(number != answer){
+                        wrong.currentTime = 0
+                        wrong.play()
+                        currentBtn.style.backgroundColor = "red"
+                        rightBtn.style.backgroundColor = "green"
+                    }
+                    choice = true
+                    let delay = setTimeout(() => {
+                        currentBtn.style.backgroundColor = "#BEBEBE"
+                        rightBtn.style.backgroundColor = "#BEBEBE"
+                        object.src = ""
+                        Question()
+                    }, 1500); 
+                }         
+                })
         }
     }
 
     once = true
-    console.log(gotRight)
+    
     if(gotRight == false){
         console.log("r")
         let index = Math.floor(Math.random() * 3) + 1;
@@ -141,26 +158,38 @@ function Question(){
     }
 }
 
-confrimButton.addEventListener("click", () => {
-    if(choice == 0){
-        return
-    }
-    confrimButton.classList.add("hide")
-
-    if(choice == answer){
-        score += 1
-        selectedBtn.style.backgroundColor = "green"
-    }
-    if(choice != answer){
-        selectedBtn.style.backgroundColor = "red"
-        rightBtn.style.backgroundColor = "green"
-    }
-
+startButton.addEventListener("click", () => {
+    playClickSound()
     let delay = setTimeout(() => {
-        selectedBtn.style.backgroundColor = "#BEBEBE"
-        rightBtn.style.backgroundColor = "#BEBEBE"
-        object.src = ""
+        start.classList.add("hide")
+        game.classList.remove("hide")
+        Start()
         Question()
-        confrimButton.classList.remove("hide")
-    }, 1500);
+    }, 200);
 })
+
+againButton.addEventListener("click", () => {
+    playClickSound()
+    let delay = setTimeout(() => {
+        final.classList.add("hide")
+        start.classList.remove("hide")
+    }, 200);
+})
+
+homeButton.addEventListener("click", () => {
+    playClickSound()
+    let delay = setTimeout(() => {
+        location.assign('https://gimme.sg/activations/dementia/');
+    }, 200);
+})
+
+function playClickSound(){
+    console.log(clickSound)
+    clickSound.currentTime = 0
+    clickSound.play()
+}
+
+/*prevent double tag zoom*/
+document.addEventListener('dblclick', function(event) {
+event.preventDefault();
+}, { passive: false });

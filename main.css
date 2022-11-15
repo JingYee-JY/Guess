@@ -60,6 +60,34 @@ body{
     font-size: 25px;
 }
 
+.startButton:active,.againButton:active,.homeButton:active{
+    animation: animate 0.2s;
+    -webkit-animation: animate 0.2s;
+}
+
+@keyframes animate{
+    0%{
+        transform: rotate(0deg) translateX(0px);
+        -webkit-transform: rotate(0deg) translateX(0px);
+    }
+    25%{
+        transform: rotate(-20deg) translateX(-10px);
+        -webkit-transform: rotate(-20deg) translateX(-10px);
+    }
+    50%{
+        transform: rotate(0deg) translateX(0px);
+        -webkit-transform: rotate(0deg) translateX(0px);
+    }
+    75%{
+        transform: rotate(20deg) translateX(10px);
+        -webkit-transform: rotate(20deg) translateX(10px);
+    }
+    100%{
+        transform: rotate(0deg) translateX(0px);
+        -webkit-transform: rotate(0deg) translateX(0px);
+    }
+}
+
 .homeButton{
     background-color: #D0B14B;
     box-shadow: 0px 8px #FAD96E;
@@ -78,6 +106,60 @@ body{
     align-items: center;
     display: flex;
     font-weight: 500;
+}
+
+.game{
+    color: black;
+}
+
+.number{
+    margin-top: 30px;
+    font-size: 25px;
+    color: white;
+}
+
+h1{
+    margin: 0;
+}
+
+.object{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.options{
+    height: 160px;
+    display: grid;
+    gap: 10%;
+    grid-template-columns: 50%;
+    justify-content: center;
+}
+
+.image{
+    margin: 0 auto;
+    margin-top: 80px;
+    width: 80%;
+}
+
+.hint{
+    margin: 0% auto;
+    width: 80%;
+    font-size: 25px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+}
+
+#btn1, #btn2, #btn3{
+    padding: 5%;
+    background-color: #BEBEBE;
+    border: transparent;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.hide{
+    visibility: hidden;
+    display: none;
 }
 
 /*mobile*/
@@ -107,6 +189,25 @@ body{
     .arrowHead{
         max-width: 20px;
     }
+    .image{
+        width: 70%;
+    }
+    .number{
+        margin: 0;
+    }
+    .object{
+        width: 40%;
+    }
+    h1{
+        font-size: 70px;
+    }
+    .options{
+        gap: 5%;
+        height: 300px;
+    }
+    .hint,.number,#btn1,#btn2,#btn3{
+        font-size: 35px;
+    }
 }
 
 /*desktop*/
@@ -126,5 +227,21 @@ body{
         padding: 3%;
         max-width: 250px;
         margin-bottom: 0;
+    }
+    .number{
+        margin-top: 0;
+    }
+    .options{
+        height: 150px;
+        gap: 5%;
+    }
+    .hint,.number{
+        font-size: 20px;
+    }
+    .game{
+     gap: 10px;
+    }
+    .image{
+        margin: 0 auto;
     }
 }

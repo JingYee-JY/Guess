@@ -15,9 +15,38 @@
             <img class="title" src="./img/title.png">
         </div>
         <img class="preview" src="./img/preview.png">
-        <button class="startButton" onclick="window.location.href='game.html'">
+        <button class="startButton">
             <p class="words"><img src="./img/arrow.png" class="arrowHead"> START GAME</p>
         </button>
     </div>
+    <div class="game hide">
+        <div class="number"></div>
+        <h1>What's this?</h1>
+        <img class="object">
+        <p class="hint"></p>
+        <div class="options">
+            <button id="btn1"></button>
+            <button id="btn2"></button>
+            <button id="btn3"></button>
+        </div>
+    </div>
+    <div class="final hide">
+        <img class="image">
+        <button class="againButton">
+            <p class="words"><img src="./img/arrow.png" class="arrowHead">Play again</p>
+        </button>
+        <button class="homeButton">
+            <p class="words"><img src="./img/arrow.png" class="arrowHead">Back to home</p>
+        </button>
+    </div>
+
+    <audio id="click" src="sound/click.wav"></audio>
+    <audio id="completed" src="./sound/completed.wav"></audio>
+    <audio id="clap" src="./sound/clap.wav"></audio>
+    <audio id="correct" src="sound/correct.wav"></audio>
+    <audio id="wrong" src="./sound/wrong.wav"></audio>
+    <audio id="lose" src="./sound/lose.wav"></audio>
+
+    <script src="./script.js"></script>
 </body>
 </html>
